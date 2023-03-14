@@ -1,112 +1,115 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient';
+// import { useState, useEffect } from 'react';
+// import { supabase } from '../supabaseClient';
 import React from 'react';
 
 const Account = ({ session }: any) => {
-  const [loading, setLoading] = useState<any | null>(true);
-  const [username, setUsername] = useState<any | null>(null);
-  const [website, setWebsite] = useState<any | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<any | null>(null);
+  console.log(session);
+  return <h1>Account</h1>;
 
-  useEffect(() => {
-    getProfile();
-  }, [session]);
+  //   const [loading, setLoading] = useState<any | null>(true);
+  //   const [username, setUsername] = useState<any | null>(null);
+  //   const [website, setWebsite] = useState<any | null>(null);
+  //   const [avatar_url, setAvatarUrl] = useState<any | null>(null);
 
-  const getProfile = async () => {
-    try {
-      setLoading(true);
-      const { user } = session;
+  //   useEffect(() => {
+  //     getProfile();
+  //   }, [session]);
 
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, website, avatar_url`)
-        .eq('id', user.id)
-        .single();
+  //   const getProfile = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const { user } = session;
 
-      if (error && status !== 406) {
-        throw error;
-      }
+  //       let { data, error, status } = await supabase
+  //         .from('profiles')
+  //         .select(`username, website, avatar_url`)
+  //         .eq('id', user.id)
+  //         .single();
 
-      if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
-      }
-    } catch (error: any) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //       if (error && status !== 406) {
+  //         throw error;
+  //       }
 
-  const updateProfile = async (e: any) => {
-    e.preventDefault();
+  //       if (data) {
+  //         setUsername(data.username);
+  //         setWebsite(data.website);
+  //         setAvatarUrl(data.avatar_url);
+  //       }
+  //     } catch (error: any) {
+  //       console.log(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    try {
-      setLoading(true);
-      const { user } = session;
+  //   const updateProfile = async (e: any) => {
+  //     e.preventDefault();
 
-      const updates = {
-        id: user.id,
-        username,
-        website,
-        avatar_url,
-        updated_at: new Date(),
-      };
+  //     try {
+  //       setLoading(true);
+  //       const { user } = session;
 
-      let { error } = await supabase.from('profiles').upsert(updates);
+  //       const updates = {
+  //         id: user.id,
+  //         username,
+  //         website,
+  //         avatar_url,
+  //         updated_at: new Date(),
+  //       };
 
-      if (error) {
-        throw error;
-      }
-    } catch (error: any) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //       let { error } = await supabase.from('profiles').upsert(updates);
 
-  return (
-    <div aria-live="polite">
-      {loading ? (
-        'Saving ...'
-      ) : (
-        <form onSubmit={updateProfile} className="form-widget">
-          <div>Email: {session.user.email}</div>
-          <div>
-            <label htmlFor="username">Name</label>
-            <input
-              id="username"
-              type="text"
-              value={username || ''}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="website">Website</label>
-            <input
-              id="website"
-              type="url"
-              value={website || ''}
-              onChange={(e) => setWebsite(e.target.value)}
-            />
-          </div>
-          <div>
-            <button className="button primary block" disabled={loading}>
-              Update profile
-            </button>
-          </div>
-        </form>
-      )}
-      <button
-        type="button"
-        className="button block"
-        onClick={() => supabase.auth.signOut()}
-      >
-        Sign Out
-      </button>
-    </div>
-  );
+  //       if (error) {
+  //         throw error;
+  //       }
+  //     } catch (error: any) {
+  //       console.log(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   return (
+  //     <div aria-live="polite">
+  //       {loading ? (
+  //         'Saving ...'
+  //       ) : (
+  //         <form onSubmit={updateProfile} className="form-widget">
+  //           <div>Email: {session.user.email}</div>
+  //           <div>
+  //             <label htmlFor="username">Name</label>
+  //             <input
+  //               id="username"
+  //               type="text"
+  //               value={username || ''}
+  //               onChange={(e) => setUsername(e.target.value)}
+  //             />
+  //           </div>
+  //           <div>
+  //             <label htmlFor="website">Website</label>
+  //             <input
+  //               id="website"
+  //               type="url"
+  //               value={website || ''}
+  //               onChange={(e) => setWebsite(e.target.value)}
+  //             />
+  //           </div>
+  //           <div>
+  //             <button className="button primary block" disabled={loading}>
+  //               Update profile
+  //             </button>
+  //           </div>
+  //         </form>
+  //       )}
+  //       <button
+  //         type="button"
+  //         className="button block"
+  //         onClick={() => supabase.auth.signOut()}
+  //       >
+  //         Sign Out
+  //       </button>
+  //     </div>
+  //   );
 };
 
 export default Account;
