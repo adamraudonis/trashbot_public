@@ -5,7 +5,6 @@ import './Home.scss';
 
 export default function Home({ session }: any) {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
