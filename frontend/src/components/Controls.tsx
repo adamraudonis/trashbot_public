@@ -108,6 +108,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('forward')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('forward')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Forward
@@ -121,6 +123,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('left')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('left')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Left
@@ -133,6 +137,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('stop')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('stop')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Stop
@@ -145,6 +151,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('right')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('right')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Right
@@ -158,6 +166,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('backward')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('backward')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Backward
@@ -180,6 +190,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('extend')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('extend')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Retract
@@ -192,6 +204,8 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('retract')}
             onTouchEnd={this.handleButtonRelease}
+            onPointerDown={() => this.handleButtonPress('retract')}
+            onPointerUp={this.handleButtonRelease}
             onContextMenu={this.handleContextMenu}
           >
             Extend
