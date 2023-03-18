@@ -50,7 +50,7 @@ const Account = ({ session }: any) => {
       <div>
         <a href="/">Back</a>
         <h1>Admin</h1>
-        <p>
+        <p style={{ color: 'white' }}>
           Controlling User: {controllingUser.name} {controllingUser.email}
         </p>
         {users.map((user: any) => {
