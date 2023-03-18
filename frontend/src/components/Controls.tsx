@@ -35,6 +35,13 @@ class Controls extends Component<MyProps, RobotControllerState> {
   handleButtonRelease = () => {
     this.setState({ pressedButton: null });
     console.log('released');
+    makeCommand(this.props.session.user.id, 'stop');
+  };
+
+  handleContextMenu = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
   };
 
   render() {
@@ -100,6 +107,7 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('forward')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
             Forward
           </button>
@@ -112,6 +120,7 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('left')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
             Left
           </button>
@@ -123,6 +132,7 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('stop')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
             Stop
           </button>
@@ -134,6 +144,7 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('right')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
             Right
           </button>
@@ -146,6 +157,7 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('backward')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
             Backward
           </button>
@@ -167,8 +179,9 @@ class Controls extends Component<MyProps, RobotControllerState> {
             }
             onTouchStart={() => this.handleButtonPress('extend')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
-            Extend
+            Retract
           </button>
           <button
             style={
@@ -176,10 +189,11 @@ class Controls extends Component<MyProps, RobotControllerState> {
                 ? armPressedButtonStyle
                 : armButtonStyle
             }
-            onTouchStart={() => this.handleButtonPress('extend')}
+            onTouchStart={() => this.handleButtonPress('retract')}
             onTouchEnd={this.handleButtonRelease}
+            onContextMenu={this.handleContextMenu}
           >
-            Retract
+            Extend
           </button>
         </div>
       </div>

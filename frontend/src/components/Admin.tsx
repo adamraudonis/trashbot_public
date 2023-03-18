@@ -35,12 +35,8 @@ const Account = ({ session }: any) => {
       created_at: new Date(),
       user_id: user_id,
     };
-    const resp = await supabase
-      .from('controller')
-      .update(controller)
-      .eq('id', 1)
-      .select();
-    console.log(resp);
+    await supabase.from('controller').update(controller).eq('id', 1).select();
+    getProfile();
   };
 
   if (loading) {
@@ -68,80 +64,6 @@ const Account = ({ session }: any) => {
       </div>
     );
   }
-
-  //   const [loading, setLoading] = useState<any | null>(true);
-  //   const [username, setUsername] = useState<any | null>(null);
-  //   const [website, setWebsite] = useState<any | null>(null);
-  //   const [avatar_url, setAvatarUrl] = useState<any | null>(null);
-
-  //   const updateProfile = async (e: any) => {
-  //     e.preventDefault();
-
-  //     try {
-  //       setLoading(true);
-  //       const { user } = session;
-
-  //       const updates = {
-  //         id: user.id,
-  //         username,
-  //         website,
-  //         avatar_url,
-  //         updated_at: new Date(),
-  //       };
-
-  //       let { error } = await supabase.from('profiles').upsert(updates);
-
-  //       if (error) {
-  //         throw error;
-  //       }
-  //     } catch (error: any) {
-  //       console.log(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   return (
-  //     <div aria-live="polite">
-  //       {loading ? (
-  //         'Saving ...'
-  //       ) : (
-  //         <form onSubmit={updateProfile} className="form-widget">
-  //           <div>Email: {session.user.email}</div>
-  //           <div>
-  //             <label htmlFor="username">Name</label>
-  //             <input
-  //               id="username"
-  //               type="text"
-  //               value={username || ''}
-  //               onChange={(e) => setUsername(e.target.value)}
-  //             />
-  //           </div>
-  //           <div>
-  //             <label htmlFor="website">Website</label>
-  //             <input
-  //               id="website"
-  //               type="url"
-  //               value={website || ''}
-  //               onChange={(e) => setWebsite(e.target.value)}
-  //             />
-  //           </div>
-  //           <div>
-  //             <button className="button primary block" disabled={loading}>
-  //               Update profile
-  //             </button>
-  //           </div>
-  //         </form>
-  //       )}
-  //       <button
-  //         type="button"
-  //         className="button block"
-  //         onClick={() => supabase.auth.signOut()}
-  //       >
-  //         Sign Out
-  //       </button>
-  //     </div>
-  //   );
 };
 
 export default Account;
