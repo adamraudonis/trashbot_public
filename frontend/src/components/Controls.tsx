@@ -74,6 +74,7 @@ class Controls extends Component<MyProps, RobotControllerState> {
       borderRadius: '4px',
       width: '100%',
       height: '60px',
+      userSelect: 'none',
     };
 
     const pressedButtonStyle: CSSProperties = {

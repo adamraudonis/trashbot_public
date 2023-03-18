@@ -39,8 +39,6 @@ export default function App() {
     });
 
     supabase.auth.onAuthStateChange(async (_event, session) => {
-      console.log('inside auth state change', _event, session);
-
       if (session) {
         const { user } = session || {};
         const { email, user_metadata, id } = user || {};
