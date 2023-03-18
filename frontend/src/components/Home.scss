@@ -1,3 +1,83 @@
+.backgroundImage {
+  height: 100vh;
+  width: 100vw;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.logoutButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #f2f2f2;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.button {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+}
+
+.trashbot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+}
+
+.trashbot-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 4rem;
+  color: white;
+  text-shadow: 2px 2px #000000;
+}
+
 .login-with-google-btn {
     transition: background-color .3s, box-shadow .3s;
       
@@ -44,4 +124,5 @@
   body {
     text-align: center;
     padding-top: 2rem;
+    background-color: #000000;
   }

@@ -27,8 +27,9 @@ export default function Home({ session, isAdmin }: any) {
   const signOutUser = async () => {
     await supabase.auth.signOut();
   };
-
-  const userWelcome = session ? <div>Welcome {session.user.email}!</div> : null;
+  const userWelcome = session ? (
+    <div className="subtitle">Welcome {session.user.user_metadata.name}!</div>
+  ) : null;
   const signIn = loading ? (
     'Logging In...'
   ) : (
@@ -44,22 +45,35 @@ export default function Home({ session, isAdmin }: any) {
   const signInOrLogOut = session ? (
     <div>
       <br />
-      <button onClick={signOutUser}>Logout</button>
+      <button className="logoutButton" onClick={signOutUser}>
+        Logout
+      </button>
     </div>
   ) : (
     signIn
   );
   const controlsLink = session ? (
-    <div>
-      <a href="/controls">Controls</a>
-      <br />
-      <br />
-    </div>
+    <button
+      className="button"
+      onClick={() => {
+        window.location.href = '/controls';
+      }}
+    >
+      Controls
+    </button>
   ) : null;
   const selectUserLink =
     session && isAdmin ? (
       <div>
-        <a href="/admin">Admin</a>
+        <br />
+        <button
+          className="button"
+          onClick={() => {
+            window.location.href = '/admin';
+          }}
+        >
+          Admin
+        </button>
       </div>
     ) : null;
   // If is admin
@@ -68,15 +82,26 @@ export default function Home({ session, isAdmin }: any) {
   // - select user to control
   // If is regular user
   // - control robot link if allowed
+  // return (
+  //   <div
+  //     className="trashbot-container"
+  //     style={{ backgroundImage: `url(/trashbot.jpeg)` }}
+  //   >
+  //     <h1 className="trashbot-title">Trashbot</h1>
+
+  //   </div>
+  // );
+  const trashbotImage = '/trashbot.jpeg';
   return (
-    <div>
-      <div>
-        <h1 className="header">Trashbot</h1>
-        {userWelcome}
-        {controlsLink}
-        {selectUserLink}
-        {signInOrLogOut}
-      </div>
+    <div
+      className="backgroundImage"
+      style={{ backgroundImage: `url(${trashbotImage})` }}
+    >
+      <h1 className="title">Trashbot</h1>
+      {userWelcome}
+      {controlsLink}
+      {selectUserLink}
+      {signInOrLogOut}
     </div>
   );
 }
