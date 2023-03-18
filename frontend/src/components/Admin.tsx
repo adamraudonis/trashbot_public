@@ -55,11 +55,14 @@ const Account = ({ session }: any) => {
         </p>
         {users.map((user: any) => {
           return (
-            <button onClick={() => buttonPress(user.user_id)}>
-              {user.name}
-              {'\n'}
-              {user.email}
-            </button>
+            <div>
+              <button onClick={() => buttonPress(user.user_id)}>
+                {user.name}
+                {'\n'}
+                {user.email}
+              </button>
+              <br />
+            </div>
           );
         })}
       </div>

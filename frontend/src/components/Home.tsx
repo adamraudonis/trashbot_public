@@ -12,17 +12,9 @@ export default function Home({ session, isAdmin }: any) {
     try {
       setLoading(true);
 
-      const { data, error }: any = await supabase.auth.signInWithOAuth({
+      const { error }: any = await supabase.auth.signInWithOAuth({
         provider: 'google',
       });
-      console.log(data);
-      const updates = {
-        created_at: new Date(),
-        email: data.email,
-        name: data.name,
-        user_id: data.id,
-      };
-      await supabase.from('profiles').upsert(updates);
 
       if (error) throw error;
     } catch (error: any) {
@@ -64,11 +56,12 @@ export default function Home({ session, isAdmin }: any) {
       <br />
     </div>
   ) : null;
-  const selectUserLink = session ? (
-    <div>
-      <a href="/admin">Admin</a>
-    </div>
-  ) : null;
+  const selectUserLink =
+    session && isAdmin ? (
+      <div>
+        <a href="/admin">Admin</a>
+      </div>
+    ) : null;
   // If is admin
   // - control robot
   // - get list of users
