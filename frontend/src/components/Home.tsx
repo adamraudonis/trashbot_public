@@ -15,6 +15,7 @@ export default function Home({ session, isAdmin }: any) {
       const { data, error }: any = await supabase.auth.signInWithOAuth({
         provider: 'google',
       });
+      console.log(data);
       const updates = {
         created_at: new Date(),
         email: data.email,
@@ -29,6 +30,10 @@ export default function Home({ session, isAdmin }: any) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const signOutUser = async () => {
+    await supabase.auth.signOut();
   };
 
   const userWelcome = session ? <div>Welcome {session.user.email}!</div> : null;
@@ -47,7 +52,7 @@ export default function Home({ session, isAdmin }: any) {
   const signInOrLogOut = session ? (
     <div>
       <br />
-      <a href="/">Logout</a>
+      <button onClick={signOutUser}>Logout</button>
     </div>
   ) : (
     signIn

@@ -38,8 +38,21 @@ export default function App() {
       setIsDone(true);
     });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    supabase.auth.onAuthStateChange(async (_event, session) => {
       console.log('inside auth state change', _event, session);
+
+      if (session) {
+        const { user } = session || {};
+        const { email, user_metadata, id } = user || {};
+        const { name } = user_metadata || {};
+        const updates = {
+          created_at: new Date(),
+          email: email,
+          name: name,
+          user_id: id,
+        };
+        await supabase.from('profiles').upsert(updates);
+      }
 
       setSession(session);
     });
