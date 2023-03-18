@@ -14,3 +14,6 @@ https://testdriven.io/blog/flask-elastic-beanstalk/
 - control table only controller.user can edit
 - only admin can edit controller
 - only admin can view/edit profiles
+
+https://levelup.gitconnected.com/netlify-custom-domains-8b4cc5fddb5d
+https://supabase.com/docs/guides/auth/row-level-security

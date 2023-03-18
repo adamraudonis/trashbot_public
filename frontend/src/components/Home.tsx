@@ -3,7 +3,7 @@ import { supabase } from '../supabaseClient';
 import React from 'react';
 import './Home.scss';
 
-export default function Home({ session }: any) {
+export default function Home({ session, isAdmin }: any) {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: any) => {
@@ -12,10 +12,16 @@ export default function Home({ session }: any) {
     try {
       setLoading(true);
 
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { data, error }: any = await supabase.auth.signInWithOAuth({
         provider: 'google',
       });
-      console.log(data);
+      const updates = {
+        created_at: new Date(),
+        email: data.email,
+        name: data.name,
+        user_id: data.id,
+      };
+      await supabase.from('profiles').upsert(updates);
 
       if (error) throw error;
     } catch (error: any) {
@@ -38,7 +44,26 @@ export default function Home({ session }: any) {
     </button>
   );
   // TODO
-  const signInOrLogOut = session ? <a href="/">Logout</a> : signIn;
+  const signInOrLogOut = session ? (
+    <div>
+      <br />
+      <a href="/">Logout</a>
+    </div>
+  ) : (
+    signIn
+  );
+  const controlsLink = session ? (
+    <div>
+      <a href="/controls">Controls</a>
+      <br />
+      <br />
+    </div>
+  ) : null;
+  const selectUserLink = session ? (
+    <div>
+      <a href="/admin">Admin</a>
+    </div>
+  ) : null;
   // If is admin
   // - control robot
   // - get list of users
@@ -50,6 +75,8 @@ export default function Home({ session }: any) {
       <div>
         <h1 className="header">Trashbot</h1>
         {userWelcome}
+        {controlsLink}
+        {selectUserLink}
         {signInOrLogOut}
       </div>
     </div>

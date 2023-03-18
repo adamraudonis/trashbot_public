@@ -2,7 +2,7 @@ import './index.scss';
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import Home from './components/Home';
-import Account from './components/Account';
+import Admin from './components/Admin';
 import Controls from './components/Controls';
 import About from './components/About';
 import React from 'react';
@@ -19,16 +19,27 @@ const PrivateRoute = ({ element, session, ...rest }: any) => {
 export default function App() {
   const [session, setSession] = useState<any | null>(null);
   const [isDone, setIsDone] = useState<boolean | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('inside get session2');
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
+
+      if (session) {
+        const { data }: any = await supabase
+          .from('admins')
+          .select()
+          .eq('id', session.user.id);
+        setIsAdmin(data.length > 0);
+      } else {
+        setIsAdmin(false);
+      }
+
       setIsDone(true);
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('inside auth state change');
+      console.log('inside auth state change', _event, session);
 
       setSession(session);
     });
@@ -38,18 +49,26 @@ export default function App() {
   } else {
     return (
       <Routes>
-        <Route path="/" element={<Home session={session} />} />
+        <Route
+          path="/"
+          element={<Home session={session} isAdmin={isAdmin} />}
+        />
         <Route path="/about" element={<About />} />
         <Route
           path="/controls"
-          element={<PrivateRoute session={session} element={<Controls />} />}
-        />
-        <Route
-          path="/account"
           element={
             <PrivateRoute
               session={session}
-              element={<Account session={session} />}
+              element={<Controls session={session} />}
+            />
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute
+              session={session}
+              element={<Admin session={session} />}
             />
           }
         />

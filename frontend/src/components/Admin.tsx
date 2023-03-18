@@ -1,45 +1,75 @@
-// import { useState, useEffect } from 'react';
-// import { supabase } from '../supabaseClient';
+import { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 import React from 'react';
 
 const Account = ({ session }: any) => {
-  return <h1>Account</h1>;
+  const [loading, setLoading] = useState<any | null>(true);
+  const [users, setUsers] = useState<any | null>([]);
+  const [controllingUser, setControllingUser] = useState<any | null>([]);
+
+  useEffect(() => {
+    getProfile();
+  }, [session]);
+
+  const getProfile = async () => {
+    setLoading(true);
+
+    const profiles = await supabase.from('profiles').select();
+    setUsers(profiles.data);
+
+    const raw_cuid: any = await supabase.from('controller').select('user_id');
+    const cuid = raw_cuid.data[0]['user_id'];
+
+    const profiles_data = profiles.data || [];
+    const controllerUser = profiles_data.filter(
+      (item) => item.user_id === cuid
+    );
+    setControllingUser(controllerUser[0]);
+
+    setLoading(false);
+  };
+
+  const buttonPress = async (user_id: string) => {
+    const controller = {
+      id: 1,
+      created_at: new Date(),
+      user_id: user_id,
+    };
+    const resp = await supabase
+      .from('controller')
+      .update(controller)
+      .eq('id', 1)
+      .select();
+    console.log(resp);
+  };
+
+  if (loading) {
+    return <h1>Loading</h1>;
+  } else {
+    return (
+      <div>
+        <a href="/">Back</a>
+        <h1>Admin</h1>
+        <p>
+          Controlling User: {controllingUser.name} {controllingUser.email}
+        </p>
+        {users.map((user: any) => {
+          return (
+            <button onClick={() => buttonPress(user.user_id)}>
+              {user.name}
+              {'\n'}
+              {user.email}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
 
   //   const [loading, setLoading] = useState<any | null>(true);
   //   const [username, setUsername] = useState<any | null>(null);
   //   const [website, setWebsite] = useState<any | null>(null);
   //   const [avatar_url, setAvatarUrl] = useState<any | null>(null);
-
-  //   useEffect(() => {
-  //     getProfile();
-  //   }, [session]);
-
-  //   const getProfile = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const { user } = session;
-
-  //       let { data, error, status } = await supabase
-  //         .from('profiles')
-  //         .select(`username, website, avatar_url`)
-  //         .eq('id', user.id)
-  //         .single();
-
-  //       if (error && status !== 406) {
-  //         throw error;
-  //       }
-
-  //       if (data) {
-  //         setUsername(data.username);
-  //         setWebsite(data.website);
-  //         setAvatarUrl(data.avatar_url);
-  //       }
-  //     } catch (error: any) {
-  //       console.log(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
 
   //   const updateProfile = async (e: any) => {
   //     e.preventDefault();

@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
 
 SUPABASE_ID = os.getenv('SUPABASE_ID')
+# NOTE: This cannot be the anon public one. It must be the service role secret
 SUPABASE_API_KEY = os.getenv('SUPABASE_API_KEY')
-
 
 
 def callback1(payload):

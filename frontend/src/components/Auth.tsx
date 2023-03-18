@@ -12,10 +12,9 @@ export default function Auth() {
     try {
       setLoading(true);
 
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
       });
-      console.log(data);
 
       if (error) throw error;
     } catch (error: any) {
